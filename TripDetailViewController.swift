@@ -69,14 +69,15 @@ class TripDetailViewController : UIViewController, MKMapViewDelegate {
     }
     
     func calculateTotalDistance() {
-            for (var i = 0 ; i < self.places.count-1; i++) {
-                let location1 = CLLocation(latitude: self.places[i].latitude, longitude: self.places[i].longitude)
-                let location2 = CLLocation(latitude: self.places[i+1].latitude, longitude: self.places[i+1].longitude)
-                
-                let distance = location1.distanceFromLocation(location2)
-                totalDistance += distance
-            }
-        distanceTravelledLabel.text = String(format: "%.2f km", totalDistance/1000.0)
+        totalDistance = 0.0
+        for (var i = 0 ; i < self.places.count-1; i++) {
+            let location1 = CLLocation(latitude: self.places[i].latitude, longitude: self.places[i].longitude)
+            let location2 = CLLocation(latitude: self.places[i+1].latitude, longitude: self.places[i+1].longitude)
+            
+            let distance = location1.distanceFromLocation(location2)/1000.0
+            totalDistance += distance
+        }
+        distanceTravelledLabel.text = String(format: "%.2f km", totalDistance)
     }
     
     // Method to put pin on the map
@@ -156,6 +157,7 @@ class TripDetailViewController : UIViewController, MKMapViewDelegate {
         let query = PFQuery(className: "Trip")
         query.whereKey("title", equalTo: tripTitle)
         query.whereKey("userId", equalTo: currentUserId!)
+        query.orderByAscending("sequence")
         query.findObjectsInBackgroundWithBlock { (objects:[PFObject]?, error:NSError?) -> Void in
             if error == nil {
                 if let objects = objects {

@@ -26,10 +26,20 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
     var countryName:String = ""
     var tripTitle:String = ""
     var uniqueNameErrorOccured:Bool = false
+    var currentObjectTitle :String = ""
+    var endCountry:String = ""
+    var startCountry:String = ""
+    
+    // outlets
+    @IBOutlet weak var lastTripSummaryBar: UINavigationBar!
+    @IBOutlet weak var fromCountry: UILabel!
+    @IBOutlet weak var toCountry: UILabel!
+    @IBOutlet weak var distanceTravelled: UILabel!
 
     // variables
     var pointLatitude: CLLocationDegrees = CLLocationDegrees()
     var pointLongitude: CLLocationDegrees = CLLocationDegrees()
+    var currentAnnotations: Array<Place> = [Place]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,6 +65,131 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
         
         // Mapview Delegate self
         mmvMapView.delegate = self
+        let titleTextAttribute:Dictionary = [NSForegroundColorAttributeName: UIColor.whiteColor(), NSFontAttributeName:UIFont(name: "Optima-Bold", size: 23.0)!]
+        UINavigationBar.appearance().titleTextAttributes = titleTextAttribute
+        
+        let lastTripSummaryBarTitleTextAttribute:Dictionary = [NSForegroundColorAttributeName: UIColor.whiteColor(), NSFontAttributeName:UIFont(name: "Optima-Bold", size: 18.0)!]
+        lastTripSummaryBar.titleTextAttributes = lastTripSummaryBarTitleTextAttribute
+     
+        // display last trip
+        queryLastTrip()
+        
+    }
+    
+    func queryLastTrip() {
+        // get last inserted object
+        let lastElementQuery = PFQuery(className: "Trip")
+        let currentUser = PFUser.currentUser()?.objectId
+        lastElementQuery.orderByDescending("createdAt")
+        lastElementQuery.whereKey("userId", equalTo: currentUser!)
+        lastElementQuery.getFirstObjectInBackgroundWithBlock { (object:PFObject?, error:NSError?) -> Void in
+            if (error != nil) {
+                print(error)
+            }
+            else if let currentObject = object {
+                self.currentObjectTitle = currentObject.valueForKey("title") as! String
+                self.endCountry = currentObject.valueForKey("country") as! String
+                
+                //get all elements with that title
+                let allElementsWithTitleQuery = PFQuery(className: "Trip")
+                allElementsWithTitleQuery.whereKey("title", equalTo: self.currentObjectTitle)
+                allElementsWithTitleQuery.whereKey("userId", equalTo: currentUser!)
+                allElementsWithTitleQuery.orderByAscending("sequence")
+                allElementsWithTitleQuery.findObjectsInBackgroundWithBlock { (objects:[PFObject]?, error:NSError?) -> Void in
+                    if let allObjects = objects {
+                        for (var i = 0 ; i < allObjects.count; i++) {
+                            // create points and join them
+                            let object = allObjects[i]
+                            let latitude = object.valueForKey("latitude") as! Double
+                            let longitude = object.valueForKey("longitude") as! Double
+                            var pinColor = UIColor()
+                            if i == 0 {
+                                pinColor = UIColor.greenColor()
+                                self.startCountry = object.valueForKey("country") as! String
+                            } else if i == allObjects.count - 1 {
+                                pinColor = UIColor.redColor()
+                            } else {
+                                pinColor = UIColor.grayColor()
+                            }
+                            
+                            let newPlace = Place(latitude: latitude, longitude: longitude, pinColor: pinColor)
+                            newPlace.countryName = object.valueForKey("country") as! String
+                            self.currentAnnotations.append(newPlace)
+                            
+                        }
+                    }
+                    
+                    self.calculateTotalDistance()
+                    
+                    // put pins on the map
+                    for place in self.currentAnnotations {
+                        self.mmvMapView.addAnnotation(place)
+                    }
+                    
+                    if self.currentAnnotations.count > 1 {
+                        self.joinPoints()
+                    }
+                    
+                    // set from and to country
+                    self.fromCountry.text = self.startCountry
+                    self.toCountry.text = self.endCountry
+
+                }
+                
+
+            }
+        }
+    }
+    
+    func calculateTotalDistance() {
+        var totalDistance:Double = 0.0
+        for (var i = 0 ; i < self.currentAnnotations.count-1; i++) {
+            let location1 = CLLocation(latitude: self.currentAnnotations[i].latitude, longitude: self.currentAnnotations[i].longitude)
+            let location2 = CLLocation(latitude: self.currentAnnotations[i+1].latitude, longitude: self.currentAnnotations[i+1].longitude)
+            
+            let distance = location1.distanceFromLocation(location2)/1000.0
+            print("Distance: \(distance)")
+            totalDistance += distance
+        }
+        print("TotalDistance: \(totalDistance)")
+        distanceTravelled.text = String(format: "%.2f km", totalDistance)
+    }
+    
+    // Add Lines to connect the countries
+    func joinPoints() {
+        var points: [CLLocationCoordinate2D] = []
+        for annotation in currentAnnotations {
+            points.append(annotation.coordinate)
+        }
+        
+        // Draw a line
+        let polyline = MKPolyline(coordinates: &points, count: points.count)
+        //MKPolyline(coordinates: &points, count: points.count)
+        self.mmvMapView.removeOverlays(self.mmvMapView.overlays)
+        self.mmvMapView.addOverlay(polyline)
+        
+        
+    }
+    
+    
+    func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer {
+        if overlay is MKPolyline {
+            let polylineRenderer = MKPolylineRenderer(overlay: overlay)
+            polylineRenderer.strokeColor = UIColor.blackColor()
+            polylineRenderer.lineWidth = 2
+            polylineRenderer.lineDashPattern = [2, 5]
+            return polylineRenderer
+        }
+        return MKOverlayPathRenderer()
+    }
+    
+    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
+        
+        let pinView:MKPinAnnotationView = MKPinAnnotationView()
+        let colorAnnotation = annotation as! Place
+        pinView.annotation = colorAnnotation
+        pinView.pinTintColor = colorAnnotation.pinColor
+        return pinView
     }
     
     // Show side menu
@@ -126,36 +261,41 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
         let tripValue = locationNames["title"] as String!
         tripTitle = tripValue
         
-        // Query to see if the trip title is same
-        let sameTripQuery:PFQuery = PFQuery(className: "Trip")
-        sameTripQuery.whereKey("title", equalTo: tripValue)
-        sameTripQuery.findObjectsInBackgroundWithBlock {
-            (objects, error) -> Void in
-            if objects!.count > 0 {
-                self.showTripNameMustBeUniqueAlert()
-            } else {
-                let geocoder = CLGeocoder()
-                geocoder.geocodeAddressString(fromValue, completionHandler: {(placemarks, error) -> Void in
-                    if error != nil {
-                        print("Error occured: \(error)")
-                    }
-                    else if placemarks?.count > 0 {
-                        let placemark = placemarks![0] as CLPlacemark
-                        let location = placemark.location
-                        self.pointLatitude = (location?.coordinate.latitude)!
-                        self.pointLongitude = (location?.coordinate.longitude)!
-                        let annotation = Place(latitude: self.pointLatitude, longitude: self.pointLongitude, pinColor: UIColor.greenColor())
-                        annotation.sequenceOfVisit = self.annotations.count + 1
-                        self.annotations.append(annotation)
-                        self.mmvMapView.addAnnotation(annotation)
-                        self.createNewTrip()
-                        print("Longitude and latitude \(self.pointLatitude) : \(self.pointLongitude)")
-                    }
-                })
+        if fromValue == "" || tripValue == ""{
+          let showAlert = UIAlertController(title: "Trip not valid!", message: "Enter all fields", preferredStyle: UIAlertControllerStyle.Alert)
+            showAlert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Cancel, handler: nil))
+            presentViewController(showAlert, animated: true, completion: nil)
+        } else {
+            // Query to see if the trip title is same
+            let sameTripQuery:PFQuery = PFQuery(className: "Trip")
+            sameTripQuery.whereKey("title", equalTo: tripValue)
+            sameTripQuery.findObjectsInBackgroundWithBlock {
+                (objects, error) -> Void in
+                if objects!.count > 0 {
+                    self.showTripNameMustBeUniqueAlert()
+                } else {
+                    let geocoder = CLGeocoder()
+                    geocoder.geocodeAddressString(fromValue, completionHandler: {(placemarks, error) -> Void in
+                        if error != nil {
+                            print("Error occured: \(error)")
+                        }
+                        else if placemarks?.count > 0 {
+                            let placemark = placemarks![0] as CLPlacemark
+                            let location = placemark.location
+                            self.pointLatitude = (location?.coordinate.latitude)!
+                            self.pointLongitude = (location?.coordinate.longitude)!
+                            let annotation = Place(latitude: self.pointLatitude, longitude: self.pointLongitude, pinColor: UIColor.greenColor())
+                            annotation.sequenceOfVisit = self.annotations.count + 1
+                            self.annotations.append(annotation)
+                            self.mmvMapView.addAnnotation(annotation)
+                            self.createNewTrip()
+                            print("Longitude and latitude \(self.pointLatitude) : \(self.pointLongitude)")
+                        }
+                    })
+                }
             }
+        
         }
-        
-        
     }
     
    
