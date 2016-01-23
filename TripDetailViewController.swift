@@ -86,45 +86,51 @@ class TripDetailViewController : UIViewController, MKMapViewDelegate {
         var locationNames:Dictionary = (notification.object as? Dictionary<String,String>)!
         self.countryName = locationNames["countryName"] as String!
         
-        // Query to see if the trip title is same
-        let geocoder = CLGeocoder()
-        geocoder.geocodeAddressString(self.countryName, completionHandler: {(placemarks, error) -> Void in
-            if error != nil {
-                print("Error occured: \(error)")
-            }
-            else if placemarks?.count > 0 {
-                let placemark = placemarks![0] as CLPlacemark
-                let location = placemark.location
-                self.pointLatitude = (location?.coordinate.latitude)!
-                self.pointLongitude = (location?.coordinate.longitude)!
-                
-                let newPlace = Place(latitude: self.pointLatitude, longitude: self.pointLongitude, pinColor: UIColor.redColor())
-                newPlace.countryName = self.countryName
-                newPlace.sequenceOfVisit = self.places.count + 1
-                
-                self.places.append(newPlace)
-                self.annotations.append(newPlace)
-                self.calculateTotalDistance()
-                
-                for var i = 1 ; i < self.places.count; i++ {
-                    if i == self.places.count - 1 {
-                        self.places[i].pinColor = UIColor.redColor()
-                    } else {
-                        self.places[i].pinColor = UIColor.grayColor()
+        // check for null else add
+        if self.countryName == "" {
+            let showAlert = UIAlertController(title: "Place not valid!", message: "Enter a valid location", preferredStyle: UIAlertControllerStyle.Alert)
+            showAlert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Cancel, handler: nil))
+            presentViewController(showAlert, animated: true, completion: nil)
+        } else {
+            // Query to see if the trip title is same
+            let geocoder = CLGeocoder()
+            geocoder.geocodeAddressString(self.countryName, completionHandler: {(placemarks, error) -> Void in
+                if error != nil {
+                    print("Error occured: \(error)")
+                }
+                else if placemarks?.count > 0 {
+                    let placemark = placemarks![0] as CLPlacemark
+                    let location = placemark.location
+                    self.pointLatitude = (location?.coordinate.latitude)!
+                    self.pointLongitude = (location?.coordinate.longitude)!
+                    
+                    let newPlace = Place(latitude: self.pointLatitude, longitude: self.pointLongitude, pinColor: UIColor.redColor())
+                    newPlace.countryName = self.countryName
+                    newPlace.sequenceOfVisit = self.places.count + 1
+                    
+                    self.places.append(newPlace)
+                    self.annotations.append(newPlace)
+                    self.calculateTotalDistance()
+                    
+                    for var i = 1 ; i < self.places.count; i++ {
+                        if i == self.places.count - 1 {
+                            self.places[i].pinColor = UIColor.redColor()
+                        } else {
+                            self.places[i].pinColor = UIColor.grayColor()
+                        }
                     }
+                    
+                    // remove all and add all annotations
+                    self.tripDetailMapView.removeAnnotations(self.annotations)
+                    self.tripDetailMapView.addAnnotations(self.annotations)
+                    self.createNewTrip()
+                    if self.places.count > 1 {
+                        self.joinPoints()
+                    }
+                    print("Longitude and latitude \(self.pointLatitude) : \(self.pointLongitude)")
                 }
-                
-                // remove all and add all annotations
-                self.tripDetailMapView.removeAnnotations(self.annotations)
-                self.tripDetailMapView.addAnnotations(self.annotations)
-                self.createNewTrip()
-                if self.places.count > 1 {
-                    self.joinPoints()
-                }
-                print("Longitude and latitude \(self.pointLatitude) : \(self.pointLongitude)")
-            }
-        })
-        
+            })
+        }
     }
     
     // create new trip in Parse
