@@ -29,7 +29,6 @@ class MainNavigationController : UINavigationController {
         
         myTyipsSelectedObserver = center.addObserverForName(MenuViewController.NotificationsForMenu.MyTripsSelected, object: nil, queue: nil){ (notification: NSNotification!) -> Void in
                 let myTripsViewController = storyboard.instantiateViewControllerWithIdentifier("MyTripsViewController") 
-//                self.setViewControllers([myTripsViewController], animated: true)
             self.showViewController(myTripsViewController, sender: self)
         }
         

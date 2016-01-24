@@ -9,6 +9,7 @@
 import UIKit
 
 class ContainerViewController : UIViewController {
+    var menuShown:Bool = false
     var leftViewController : UIViewController? {
         willSet{
             if self.leftViewController != nil {
@@ -42,16 +43,6 @@ class ContainerViewController : UIViewController {
             self.addChildViewController(self.rightViewController!)
         }
     }
-    
-    var menuShown:Bool = false
-    
-//    @IBAction func swipeRight(sender: UISwipeGestureRecognizer) {
-//        showMenu()
-//    }
-//    
-//    @IBAction func swipeLeft(sender: UISwipeGestureRecognizer) {
-//        hideMenu()
-//    }
     
     func showMenu() {
         UIView.animateWithDuration (0.3, animations: {

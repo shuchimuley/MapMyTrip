@@ -20,15 +20,14 @@ class ViewController: UIViewController, UITextFieldDelegate {
         self.presentViewController(viewController, animated: true, completion: nil)
     }
     
+    @IBAction func loginIntoMapMyTrip(sender: AnyObject) {
+        loginInMapMyTrip()
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-//        let signInTapGestureRecognizer:UITapGestureRecognizer = UITapGestureRecognizer(target: self, action:Selector("loginInMapMyTrip"))
-//        signInButton.userInteractionEnabled = true
-//        signInButton.addGestureRecognizer(signInTapGestureRecognizer)
-//        
         self.passwordField.delegate = self
-        
     }
     
     func textFieldDidBeginEditing(textField: UITextField) {
@@ -44,12 +43,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
         if textField.tag == 2 {
             passwordField.placeholder = "Password"
         }
-
-    }
-    
-    
-    @IBAction func loginIntoMapMyTrip(sender: AnyObject) {
-        loginInMapMyTrip()
     }
     
     

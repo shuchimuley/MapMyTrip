@@ -13,6 +13,7 @@ class MenuViewController : UITableViewController {
         super.viewDidLoad()
         setContentHeight()
         self.view.backgroundColor = UIColor(red: 49, green: 46, blue: 104, alpha: 1.0)
+        self.tableView.backgroundColor = UIColor(red: 49, green: 46, blue: 104, alpha: 1.0)
     }
     
     func setContentHeight() {

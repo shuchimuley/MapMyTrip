@@ -109,12 +109,6 @@ class MyTripsViewController : UITableViewController {
         return cell
     }
     
-//    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-//        let index = indexPath.row
-//
-//        //performSegueWithIdentifier("tripDetailSegue", sender: self)
-//    }
-    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
         if let cell = sender as? UITableViewCell {

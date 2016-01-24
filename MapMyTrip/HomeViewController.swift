@@ -12,12 +12,8 @@ import CoreLocation
 import Parse
 
 class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
-    
-//    @IBOutlet weak var addTripButton: UIImageView!
     @IBOutlet weak var showSideViewButton: UIImageView!
-    
     @IBOutlet weak var mmvMapView: MKMapView!
-    var locationManager = CLLocationManager()
     
     // array to store coordinates
     var annotations: Array<Place> = [Place]()
@@ -29,6 +25,9 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
     var currentObjectTitle :String = ""
     var endCountry:String = ""
     var startCountry:String = ""
+    
+    // Location manager variable
+    var locationManager = CLLocationManager()
     
     // outlets
     @IBOutlet weak var lastTripSummaryBar: UINavigationBar!
@@ -48,11 +47,6 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
-        
-        // Add trip button gesture
-//        let addTripTapGestureRecognizer:UITapGestureRecognizer = UITapGestureRecognizer(target: self, action:Selector("showAddTripDetailsViewController"))
-//        addTripButton.userInteractionEnabled = true
-//        addTripButton.addGestureRecognizer(addTripTapGestureRecognizer)
         
         // signup for notification 
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "addRouteOnMap:", name: "addRoute", object: nil)
@@ -104,7 +98,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
                             let longitude = object.valueForKey("longitude") as! Double
                             var pinColor = UIColor()
                             if i == 0 {
-                                pinColor = UIColor.greenColor()
+                                pinColor = UIColor(red: 0, green: 102, blue: 0, alpha: 1)
                                 self.startCountry = object.valueForKey("country") as! String
                             } else if i == allObjects.count - 1 {
                                 pinColor = UIColor.redColor()
@@ -197,39 +191,6 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
         NSNotificationCenter.defaultCenter().postNotificationName("showSideView", object: nil)
     }
     
-    override func viewDidAppear(animated: Bool) {
-        print("View Displayed")
-
-//        // if annotations have more than 1 coordinate, join them
-//        if annotations.count > 1 {
-//            joinPoints()
-//        }
-
-    }
-    
-    
-//    func joinPoints() {
-//        var points: [CLLocationCoordinate2D] = []
-//        for annotation in annotations {
-//            points.append(annotation.coordinate)
-//        }
-//        
-//        // Draw a line
-//        let polyline = MKPolyline(coordinates: &points, count: points.count)
-//        mmvMapView.addOverlay(polyline)
-//    }
-    
-//    func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer {
-//        if overlay is MKPolyline {
-//            let polylineRenderer = MKPolylineRenderer(overlay: overlay)
-//            polylineRenderer.strokeColor = UIColor.blackColor()
-//            polylineRenderer.lineWidth = 2
-//            polylineRenderer.lineDashPattern = [2, 5]
-//            return polylineRenderer
-//        }
-//        return MKOverlayPathRenderer()
-//    }
-    
     // Create new location data
     func createNewTrip() {
         // Create Parse data for Trip (title, country, longitude, latitude)
@@ -284,7 +245,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
                             let location = placemark.location
                             self.pointLatitude = (location?.coordinate.latitude)!
                             self.pointLongitude = (location?.coordinate.longitude)!
-                            let annotation = Place(latitude: self.pointLatitude, longitude: self.pointLongitude, pinColor: UIColor.greenColor())
+                            let annotation = Place(latitude: self.pointLatitude, longitude: self.pointLongitude, pinColor: UIColor(red: 0, green: 102, blue: 0, alpha: 1))
                             annotation.sequenceOfVisit = self.annotations.count + 1
                             self.annotations.append(annotation)
                             self.mmvMapView.addAnnotation(annotation)
@@ -328,27 +289,6 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
     func addTitleTextField(titleTextField: UITextField) {
         titleTextField.placeholder = "Trip Title.."
     }
-    
-    
-    //
-//    func showAddTripDetailsViewController() {
-//        let fromAlertView = UIAlertController(title: "Add new Trip?", message: "Enter trip title:", preferredStyle: UIAlertControllerStyle.Alert)
-//        fromAlertView.addTextFieldWithConfigurationHandler(addTitleTextField)
-//        fromAlertView.addTextFieldWithConfigurationHandler(addFromTextField)
-//        
-//        fromAlertView.addAction(UIAlertAction(title: "Add", style: UIAlertActionStyle.Default, handler: {action -> Void in
-//            let tripTitle = fromAlertView.textFields![0].text!
-//            let fromCountryValue = fromAlertView.textFields![1].text!
-//            let routeData:[String:String] = ["from":fromCountryValue, "title":tripTitle]
-//            NSNotificationCenter.defaultCenter().postNotificationName("addRoute", object: routeData)
-//            
-//        }))
-//        fromAlertView.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
-//        
-//        presentViewController(fromAlertView, animated: true, completion: nil)
-//        
-//        
-//    }
     
     func showTripNameMustBeUniqueAlert() {
             let uniqueTripNameAlert = UIAlertController(title: "Choose another name", message: "Trip name must be unique", preferredStyle: UIAlertControllerStyle.Alert)

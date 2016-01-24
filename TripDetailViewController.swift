@@ -174,7 +174,7 @@ class TripDetailViewController : UIViewController, MKMapViewDelegate {
                         let longitude = object.valueForKey("longitude") as! Double
                         var pinColor = UIColor()
                         if i == 0 {
-                            pinColor = UIColor.greenColor()
+                            pinColor = UIColor(red: 0, green: 102, blue: 0, alpha: 1)
                         } else if i == objects.count - 1 {
                             pinColor = UIColor.redColor()
                         } else {
@@ -217,7 +217,6 @@ class TripDetailViewController : UIViewController, MKMapViewDelegate {
         
         // Draw a line
         let polyline = MKGeodesicPolyline(coordinates: &points, count: points.count)
-        //MKPolyline(coordinates: &points, count: points.count)
         self.tripDetailMapView.removeOverlays(self.tripDetailMapView.overlays)
         self.tripDetailMapView.addOverlay(polyline)
         
