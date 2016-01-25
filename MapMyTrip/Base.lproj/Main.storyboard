@@ -276,7 +276,7 @@
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </textAttributes>
                             <items>
-                                <navigationItem title="Title" id="rCp-pf-EGi">
+                                <navigationItem title="My Trips" id="rCp-pf-EGi">
                                     <barButtonItem key="leftBarButtonItem" systemItem="add" id="YcC-bJ-Je8">
                                         <connections>
                                             <action selector="addNewTrips:" destination="1lQ-ci-WDM" id="SJO-Od-YZD"/>

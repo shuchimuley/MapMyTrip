@@ -117,6 +117,7 @@ class TripDetailViewController : UIViewController, MKMapViewDelegate {
                     for var i = 1 ; i < self.places.count; i++ {
                         if i == self.places.count - 1 {
                             self.places[i].pinColor = UIColor.redColor()
+                            self.toCountry.text = self.places[i].countryName
                         } else {
                             self.places[i].pinColor = UIColor.grayColor()
                         }
