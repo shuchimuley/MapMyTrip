@@ -38,6 +38,11 @@
 		8BAD47DA1C50270000036873 /* menu1.png in Resources */ = {isa = PBXBuildFile; fileRef = 8BAD47D91C50270000036873 /* menu1.png */; };
 		8BAD47DC1C50292B00036873 /* menu2.png in Resources */ = {isa = PBXBuildFile; fileRef = 8BAD47DB1C50292B00036873 /* menu2.png */; };
 		8BAD47DE1C519C6100036873 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BAD47DD1C519C6100036873 /* Reachability.swift */; };
+		8BB15CF11C557FCB0015B223 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BB15CEE1C557FCB0015B223 /* FBSDKCoreKit.framework */; };
+		8BB15CF21C557FCB0015B223 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BB15CEF1C557FCB0015B223 /* FBSDKLoginKit.framework */; };
+		8BB15CF31C557FCB0015B223 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BB15CF01C557FCB0015B223 /* FBSDKShareKit.framework */; };
+		8BB15CF51C56BF140015B223 /* Trip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BB15CF41C56BF130015B223 /* Trip.swift */; };
+		8BB15CF71C56C7A40015B223 /* TripCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BB15CF61C56C7A40015B223 /* TripCell.swift */; };
 		8BDC900A1C3794010084ADAD /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDC90091C3794010084ADAD /* Place.swift */; };
 		8BDC900E1C38300A0084ADAD /* save1.png in Resources */ = {isa = PBXBuildFile; fileRef = 8BDC900D1C38300A0084ADAD /* save1.png */; };
 		8BE1FBE41C41148C00CF6096 /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BE1FBE31C41148C00CF6096 /* ContainerViewController.swift */; };
@@ -88,6 +93,11 @@
 		8BAD47D91C50270000036873 /* menu1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu1.png; sourceTree = "<group>"; };
 		8BAD47DB1C50292B00036873 /* menu2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu2.png; sourceTree = "<group>"; };
 		8BAD47DD1C519C6100036873 /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Reachability.swift; path = ../Reachability.swift; sourceTree = "<group>"; };
+		8BB15CEE1C557FCB0015B223 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
+		8BB15CEF1C557FCB0015B223 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
+		8BB15CF01C557FCB0015B223 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
+		8BB15CF41C56BF130015B223 /* Trip.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Trip.swift; path = ../Trip.swift; sourceTree = "<group>"; };
+		8BB15CF61C56C7A40015B223 /* TripCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TripCell.swift; sourceTree = "<group>"; };
 		8BDC90091C3794010084ADAD /* Place.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Place.swift; path = ../Place.swift; sourceTree = "<group>"; };
 		8BDC900D1C38300A0084ADAD /* save1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = save1.png; sourceTree = "<group>"; };
 		8BE1FBE31C41148C00CF6096 /* ContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ContainerViewController.swift; path = ../ContainerViewController.swift; sourceTree = "<group>"; };
@@ -111,12 +121,15 @@
 			files = (
 				8B99844E1BEB47F4001C2A23 /* libsqlite3.tbd in Frameworks */,
 				8B99844C1BEB47E9001C2A23 /* libz.tbd in Frameworks */,
+				8BB15CF31C557FCB0015B223 /* FBSDKShareKit.framework in Frameworks */,
 				8B99844A1BEB47DE001C2A23 /* SystemConfiguration.framework in Frameworks */,
 				8B9984481BEB47D4001C2A23 /* StoreKit.framework in Frameworks */,
+				8BB15CF21C557FCB0015B223 /* FBSDKLoginKit.framework in Frameworks */,
 				8B9984461BEB47C9001C2A23 /* Security.framework in Frameworks */,
 				8B9984441BEB47C2001C2A23 /* QuartzCore.framework in Frameworks */,
 				8B9984421BEB47B8001C2A23 /* CoreLocation.framework in Frameworks */,
 				8B9984401BEB47B2001C2A23 /* CoreGraphics.framework in Frameworks */,
+				8BB15CF11C557FCB0015B223 /* FBSDKCoreKit.framework in Frameworks */,
 				8B99843E1BEB47A8001C2A23 /* CFNetwork.framework in Frameworks */,
 				8B99843C1BEB479B001C2A23 /* AudioToolbox.framework in Frameworks */,
 				8B9984381BEB4724001C2A23 /* Parse.framework in Frameworks */,
@@ -149,6 +162,7 @@
 			isa = PBXGroup;
 			children = (
 				8BAD47DD1C519C6100036873 /* Reachability.swift */,
+				8BB15CF41C56BF130015B223 /* Trip.swift */,
 				8BDC90091C3794010084ADAD /* Place.swift */,
 				8BE1FBF51C48233E00CF6096 /* SignUpViewController.swift */,
 				8B9984201BEB4628001C2A23 /* AppDelegate.swift */,
@@ -160,6 +174,7 @@
 				8BE1FBEB1C41962000CF6096 /* MainNavigationController.swift */,
 				8BE1FBE91C41939200CF6096 /* MyTripsViewController.swift */,
 				8BE1FBED1C42C29000CF6096 /* TripDetailViewController.swift */,
+				8BB15CF61C56C7A40015B223 /* TripCell.swift */,
 				8B9984241BEB4628001C2A23 /* Main.storyboard */,
 				8B99842A1BEB4628001C2A23 /* Assets.xcassets */,
 				8B99842C1BEB4628001C2A23 /* LaunchScreen.storyboard */,
@@ -174,6 +189,9 @@
 			children = (
 				8B99844D1BEB47F4001C2A23 /* libsqlite3.tbd */,
 				8B99844B1BEB47E9001C2A23 /* libz.tbd */,
+				8BB15CEE1C557FCB0015B223 /* FBSDKCoreKit.framework */,
+				8BB15CEF1C557FCB0015B223 /* FBSDKLoginKit.framework */,
+				8BB15CF01C557FCB0015B223 /* FBSDKShareKit.framework */,
 				8B9984491BEB47DE001C2A23 /* SystemConfiguration.framework */,
 				8B9984471BEB47D4001C2A23 /* StoreKit.framework */,
 				8B9984451BEB47C9001C2A23 /* Security.framework */,
@@ -303,6 +321,7 @@
 				8B9984291BEB4628001C2A23 /* MapMyTrip.xcdatamodeld in Sources */,
 				8BE1FBEA1C41939200CF6096 /* MyTripsViewController.swift in Sources */,
 				8BE1FBE41C41148C00CF6096 /* ContainerViewController.swift in Sources */,
+				8BB15CF71C56C7A40015B223 /* TripCell.swift in Sources */,
 				8BE1FBEE1C42C29100CF6096 /* TripDetailViewController.swift in Sources */,
 				8B9984231BEB4628001C2A23 /* ViewController.swift in Sources */,
 				8BE1FBF61C48233E00CF6096 /* SignUpViewController.swift in Sources */,
@@ -311,6 +330,7 @@
 				8BE1FBE81C41337000CF6096 /* MainViewController.swift in Sources */,
 				8B9984551BEBD9AD001C2A23 /* HomeViewController.swift in Sources */,
 				8BE1FBE61C4119B400CF6096 /* MenuViewController.swift in Sources */,
+				8BB15CF51C56BF140015B223 /* Trip.swift in Sources */,
 				8BAD47DE1C519C6100036873 /* Reachability.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

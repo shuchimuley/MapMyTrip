@@ -5,6 +5,7 @@
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -290,15 +291,62 @@
                             </items>
                         </navigationBar>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="tripCellIdentifier" id="1uy-TB-ca2">
-                                <rect key="frame" x="0.0" y="72" width="600" height="44"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TripCell" rowHeight="96" id="Tvf-gj-aXq" customClass="TripCell" customModule="MapMyTrip" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="72" width="600" height="96"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="1uy-TB-ca2" id="6kA-4B-hbV">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Tvf-gj-aXq" id="mCP-Ty-Jnj">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="95"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LGv-9W-aXu">
+                                            <rect key="frame" x="15" y="10" width="280" height="21"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="21" id="9e2-Ox-eGa"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="end" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IlA-1n-UP3">
+                                            <rect key="frame" x="370" y="39" width="216" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="plane.png" translatesAutoresizingMaskIntoConstraints="NO" id="rfy-vq-eMY">
+                                            <rect key="frame" x="275" y="30" width="45" height="39"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="45" id="2Jk-CR-TKM"/>
+                                                <constraint firstAttribute="width" constant="45" id="TwX-n1-1es"/>
+                                                <constraint firstAttribute="height" constant="39" id="igS-Eg-jNS"/>
+                                            </constraints>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="start" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9w3-wH-HZN">
+                                            <rect key="frame" x="15" y="39" width="216" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="rfy-vq-eMY" firstAttribute="centerY" secondItem="9w3-wH-HZN" secondAttribute="centerY" id="1KJ-QH-4av"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="IlA-1n-UP3" secondAttribute="trailing" constant="6" id="2NL-LV-MLV"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="rfy-vq-eMY" secondAttribute="bottom" constant="5" id="6we-pb-03G"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="9w3-wH-HZN" secondAttribute="bottom" constant="14" id="Bil-eG-Ro0"/>
+                                        <constraint firstItem="rfy-vq-eMY" firstAttribute="centerX" secondItem="mCP-Ty-Jnj" secondAttribute="centerX" constant="-2.5" id="Jfh-ia-CtH"/>
+                                        <constraint firstItem="LGv-9W-aXu" firstAttribute="top" secondItem="mCP-Ty-Jnj" secondAttribute="topMargin" constant="2" id="Kcz-Sb-BA3"/>
+                                        <constraint firstItem="9w3-wH-HZN" firstAttribute="leading" secondItem="mCP-Ty-Jnj" secondAttribute="leadingMargin" constant="7" id="N13-ct-mbD"/>
+                                        <constraint firstItem="LGv-9W-aXu" firstAttribute="leading" secondItem="mCP-Ty-Jnj" secondAttribute="leadingMargin" constant="7" id="WSk-DS-bff"/>
+                                        <constraint firstItem="rfy-vq-eMY" firstAttribute="top" secondItem="mCP-Ty-Jnj" secondAttribute="topMargin" constant="22" id="n48-oG-8R5"/>
+                                        <constraint firstItem="IlA-1n-UP3" firstAttribute="leading" secondItem="rfy-vq-eMY" secondAttribute="trailing" constant="50" id="qKl-dE-8Rp"/>
+                                        <constraint firstItem="rfy-vq-eMY" firstAttribute="leading" secondItem="9w3-wH-HZN" secondAttribute="trailing" constant="44" id="tJn-7e-ugv"/>
+                                        <constraint firstItem="IlA-1n-UP3" firstAttribute="baseline" secondItem="9w3-wH-HZN" secondAttribute="baseline" id="vwt-bE-f8B"/>
+                                    </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="5j2-nF-alr" kind="show" identifier="tripDetailSegue" id="Vtq-3i-ht5"/>
+                                    <outlet property="tripEnd" destination="IlA-1n-UP3" id="NEt-tt-RIa"/>
+                                    <outlet property="tripStart" destination="9w3-wH-HZN" id="tvd-S1-5ER"/>
+                                    <outlet property="tripTitle" destination="LGv-9W-aXu" id="XwT-Cl-Kmw"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -348,11 +396,14 @@
                                                 <action selector="showMyTrips:" destination="5j2-nF-alr" id="RYd-g9-N9D"/>
                                             </connections>
                                         </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="RlN-yM-mOc">
-                                            <connections>
-                                                <action selector="addMoreCountries:" destination="5j2-nF-alr" id="D33-Oi-eGW"/>
-                                            </connections>
-                                        </barButtonItem>
+                                        <rightBarButtonItems>
+                                            <barButtonItem systemItem="add" id="RlN-yM-mOc">
+                                                <connections>
+                                                    <action selector="addMoreCountries:" destination="5j2-nF-alr" id="D33-Oi-eGW"/>
+                                                </connections>
+                                            </barButtonItem>
+                                            <barButtonItem systemItem="action" id="fyZ-jb-Von"/>
+                                        </rightBarButtonItems>
                                     </navigationItem>
                                 </items>
                             </navigationBar>

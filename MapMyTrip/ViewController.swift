@@ -8,6 +8,8 @@
 
 import UIKit
 import Parse
+//import FBSDKCoreKit
+//import FBSDKLoginKit
 
 class ViewController: UIViewController, UITextFieldDelegate {
 
@@ -28,6 +30,12 @@ class ViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.passwordField.delegate = self
+        
+        // test for fb button
+//        let loginButton: FBSDKLoginButton = FBSDKLoginButton()
+//        loginButton.center = self.view.center
+//        self.view.addSubview(loginButton)
+
     }
     
     func textFieldDidBeginEditing(textField: UITextField) {

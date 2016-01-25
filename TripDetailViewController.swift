@@ -11,6 +11,7 @@ import MapKit
 import CoreLocation
 import Parse
 
+
 class TripDetailViewController : UIViewController, MKMapViewDelegate {
     @IBOutlet weak var tripNavigationBar: UINavigationBar!
     @IBOutlet weak var tripDetailMapView: MKMapView!
@@ -65,7 +66,6 @@ class TripDetailViewController : UIViewController, MKMapViewDelegate {
         
         // delegate for map
         self.tripDetailMapView.delegate = self
-        
     }
     
     func calculateTotalDistance() {

@@ -17,6 +17,8 @@ class MyTripsViewController : UITableViewController {
     var arrayOfTrips = [String]()
     var tripTitle: String!
     var rControl:UIRefreshControl!
+    var listOfTrips:[String:[Place]] = [:]
+    let tripCellIdentifier = "TripCell"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,8 +28,13 @@ class MyTripsViewController : UITableViewController {
         self.rControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
         self.rControl.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
         self.tableView.addSubview(rControl)
-        
+
+        // get all trips
         queryAllTrips()
+    }
+    
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 80
     }
     
     func refresh(sender:AnyObject) {
@@ -35,9 +42,6 @@ class MyTripsViewController : UITableViewController {
         self.tableView.reloadData()
         self.rControl?.endRefreshing()
     }
-    
-    
-    
     
     @IBAction func closeMyTrips(sender: AnyObject) {
         self.navigationController?.popViewControllerAnimated(true)
@@ -73,14 +77,36 @@ class MyTripsViewController : UITableViewController {
         let tripsQuery = PFQuery(className: "Trip")
         
         tripsQuery.whereKey("userId", equalTo: currentUserId)
+        tripsQuery.orderByAscending("sequence")
         tripsQuery.findObjectsInBackgroundWithBlock { (objects:[PFObject]?, error:NSError?) -> Void in
             if error == nil {
                 if let objects = objects {
                     for object in objects {
                         let title = object.valueForKey("title") as! String
                         self.setOfTrips.insert(title)
+                        
+                        // set place variables
+                        let lat = object.valueForKey("latitude") as! Double
+                        let long = object.valueForKey("longitude") as! Double
+                        let pColor = UIColor.lightGrayColor()
+                        let seq = object.valueForKey("sequence") as! Int
+                        let newPlace:Place = Place(latitude: lat, longitude: long, pinColor: pColor)
+                        newPlace.sequenceOfVisit = seq
+                        newPlace.countryName = object.valueForKey("country") as! String
+                        
+                        if self.listOfTrips[title] != nil {
+                            if var listOfPlaces:[Place] = self.listOfTrips[title] {
+                                listOfPlaces.append(newPlace)
+                                self.listOfTrips[title] = listOfPlaces
+                            }
+                        } else {
+                            self.listOfTrips[title] = [newPlace]
+                        }
+
                     }
                 }
+                print(self.listOfTrips)
+                
                 if self.setOfTrips.count > 0 {
                     for ele in self.setOfTrips {
                         self.arrayOfTrips.append(ele)
@@ -103,10 +129,42 @@ class MyTripsViewController : UITableViewController {
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("tripCellIdentifier", forIndexPath: indexPath)
-        let tripName = self.arrayOfTrips[indexPath.row]
-        cell.textLabel!.text = tripName
+//        let cell = tableView.dequeueReusableCellWithIdentifier("tripCellIdentifier", forIndexPath: indexPath)
+//        let tripName = self.arrayOfTrips[indexPath.row]
+//        cell.textLabel!.text = tripName
+//        return cell
+        
+        let cell = tableView.dequeueReusableCellWithIdentifier(tripCellIdentifier) as! TripCell
+        setTripTitle(cell, indexPath: indexPath)
+        setTripStart(cell, indexPath: indexPath)
+        setTripEnd(cell, indexPath: indexPath)
         return cell
+    }
+    
+    func setTripTitle(cell:TripCell, indexPath:NSIndexPath) {
+        let item = self.arrayOfTrips[indexPath.row]
+        cell.tripTitle.text = item ?? "No Title"
+    }
+    
+    func setTripStart(cell:TripCell, indexPath:NSIndexPath) {
+        let item:String = self.arrayOfTrips[indexPath.row]
+        let listOfCountries:[Place] = self.listOfTrips[item]!
+        for place in listOfCountries {
+            if place.sequenceOfVisit == 1 {
+                cell.tripStart.text = place.countryName
+            }
+        }
+        
+    }
+    
+    func setTripEnd(cell:TripCell, indexPath:NSIndexPath) {
+        let item:String = self.arrayOfTrips[indexPath.row]
+        let listOfCountries:[Place] = self.listOfTrips[item]!
+        for place in listOfCountries {
+            if place.sequenceOfVisit == listOfCountries.count {
+                cell.tripStart.text = place.countryName
+            }
+        }
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
