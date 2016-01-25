@@ -30,7 +30,9 @@ class TripDetailViewController : UIViewController, MKMapViewDelegate {
     var justDisplay:Bool = false
     
     @IBOutlet weak var distanceTravelledLabel: UILabel!
-    
+    @IBOutlet weak var fromCountry: UILabel!
+    @IBOutlet weak var toCountry: UILabel!
+
     
     @IBAction func showMyTrips(sender: AnyObject) {
         self.navigationController?.popViewControllerAnimated(true)
@@ -159,6 +161,9 @@ class TripDetailViewController : UIViewController, MKMapViewDelegate {
     }
     
     func getAllCountriesForTrip() {
+        // table view title
+        self.navigationController?.navigationBar.topItem!.title = tripTitle
+        
         let currentUserId = PFUser.currentUser()!.objectId
         let query = PFQuery(className: "Trip")
         query.whereKey("title", equalTo: tripTitle)
@@ -179,6 +184,13 @@ class TripDetailViewController : UIViewController, MKMapViewDelegate {
                             pinColor = UIColor.redColor()
                         } else {
                             pinColor = UIColor.grayColor()
+                        }
+                        
+                        let seq = object.valueForKey("sequence") as! Int
+                        if seq == 1 {
+                            self.fromCountry.text = object.valueForKey("country") as?String
+                        } else if seq == objects.count {
+                            self.toCountry.text = object.valueForKey("country") as? String
                         }
                         
                         let newPlace = Place(latitude: latitude, longitude: longitude, pinColor: pinColor)
