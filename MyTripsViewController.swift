@@ -162,7 +162,7 @@ class MyTripsViewController : UITableViewController {
         let listOfCountries:[Place] = self.listOfTrips[item]!
         for place in listOfCountries {
             if place.sequenceOfVisit == listOfCountries.count {
-                cell.tripStart.text = place.countryName
+                cell.tripEnd.text = place.countryName
             }
         }
     }

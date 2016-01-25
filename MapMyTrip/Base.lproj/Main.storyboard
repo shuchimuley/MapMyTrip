@@ -347,6 +347,7 @@
                                     <outlet property="tripEnd" destination="IlA-1n-UP3" id="NEt-tt-RIa"/>
                                     <outlet property="tripStart" destination="9w3-wH-HZN" id="tvd-S1-5ER"/>
                                     <outlet property="tripTitle" destination="LGv-9W-aXu" id="XwT-Cl-Kmw"/>
+                                    <segue destination="5j2-nF-alr" kind="show" identifier="tripDetailSegue" id="E1l-N3-fKw"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
