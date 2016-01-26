@@ -54,6 +54,7 @@ class MyTripsViewController : UITableViewController {
         
         fromAlertView.addAction(UIAlertAction(title: "Add", style: UIAlertActionStyle.Default, handler: {action -> Void in
             let tripTitle = fromAlertView.textFields![0].text!
+            self.tripTitle = tripTitle
             let fromCountryValue = fromAlertView.textFields![1].text!
             let routeData:[String:String] = ["from":fromCountryValue, "title":tripTitle]
             NSNotificationCenter.defaultCenter().postNotificationName("addRoute", object: routeData)
@@ -83,6 +84,7 @@ class MyTripsViewController : UITableViewController {
                 if let objects = objects {
                     for object in objects {
                         let title = object.valueForKey("title") as! String
+                        self.tripTitle = title
                         self.setOfTrips.insert(title)
                         
                         // set place variables
@@ -109,7 +111,9 @@ class MyTripsViewController : UITableViewController {
                 
                 if self.setOfTrips.count > 0 {
                     for ele in self.setOfTrips {
-                        self.arrayOfTrips.append(ele)
+                        if !self.arrayOfTrips.contains(ele) {
+                            self.arrayOfTrips.append(ele)
+                        }
                     }
                 }
                 self.tableView.reloadData()
@@ -129,11 +133,6 @@ class MyTripsViewController : UITableViewController {
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-//        let cell = tableView.dequeueReusableCellWithIdentifier("tripCellIdentifier", forIndexPath: indexPath)
-//        let tripName = self.arrayOfTrips[indexPath.row]
-//        cell.textLabel!.text = tripName
-//        return cell
-        
         let cell = tableView.dequeueReusableCellWithIdentifier(tripCellIdentifier) as! TripCell
         setTripTitle(cell, indexPath: indexPath)
         setTripStart(cell, indexPath: indexPath)
@@ -142,16 +141,20 @@ class MyTripsViewController : UITableViewController {
     }
     
     func setTripTitle(cell:TripCell, indexPath:NSIndexPath) {
-        let item = self.arrayOfTrips[indexPath.row]
-        cell.tripTitle.text = item ?? "No Title"
+        if self.arrayOfTrips.count != 0 {
+            let item = self.arrayOfTrips[indexPath.row]
+            cell.tripTitle.text = item ?? "No Title"
+        }
     }
     
     func setTripStart(cell:TripCell, indexPath:NSIndexPath) {
-        let item:String = self.arrayOfTrips[indexPath.row]
-        let listOfCountries:[Place] = self.listOfTrips[item]!
-        for place in listOfCountries {
-            if place.sequenceOfVisit == 1 {
-                cell.tripStart.text = place.countryName
+        if self.arrayOfTrips.count != 0 {
+            let item:String = self.arrayOfTrips[indexPath.row]
+            let listOfCountries:[Place] = self.listOfTrips[item]!
+            for place in listOfCountries {
+                if place.sequenceOfVisit == 1 {
+                    cell.tripStart.text = place.countryName
+                }
             }
         }
         

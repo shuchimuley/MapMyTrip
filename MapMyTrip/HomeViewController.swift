@@ -178,12 +178,15 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
     }
     
     func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
-        
-        let pinView:MKPinAnnotationView = MKPinAnnotationView()
-        let colorAnnotation = annotation as! Place
-        pinView.annotation = colorAnnotation
-        pinView.pinTintColor = colorAnnotation.pinColor
-        return pinView
+        if annotation is MKPointAnnotation {
+            return nil
+        } else {
+            let pinView:MKPinAnnotationView = MKPinAnnotationView()
+            let colorAnnotation = annotation as! Place
+            pinView.annotation = colorAnnotation
+            pinView.pinTintColor = colorAnnotation.pinColor
+            return pinView
+        }
     }
     
     // Show side menu
