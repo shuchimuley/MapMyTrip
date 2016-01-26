@@ -115,10 +115,15 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
                     
                     self.calculateTotalDistance()
                     
+                    let firstPlace:Place = self.currentAnnotations[0]
                     // put pins on the map
                     for place in self.currentAnnotations {
                         self.mmvMapView.addAnnotation(place)
                     }
+                    
+                    // center map on annotation
+                    self.mmvMapView.centerCoordinate = firstPlace.coordinate
+                    
                     
                     if self.currentAnnotations.count > 1 {
                         self.joinPoints()
@@ -127,6 +132,8 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
                     // set from and to country
                     self.fromCountry.text = self.startCountry
                     self.toCountry.text = self.endCountry
+                    
+//                    self.mmvMapView.showAnnotations(self.currentAnnotations, animated: true)
 
                 }
                 
@@ -232,7 +239,9 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
         } else {
             // Query to see if the trip title is same
             let sameTripQuery:PFQuery = PFQuery(className: "Trip")
+            let currentUser = PFUser.currentUser()?.objectId
             sameTripQuery.whereKey("title", equalTo: tripValue)
+            sameTripQuery.whereKey("userId", equalTo: currentUser!)
             sameTripQuery.findObjectsInBackgroundWithBlock {
                 (objects, error) -> Void in
                 if objects!.count > 0 {
@@ -286,7 +295,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
     }
     
     func addFromTextField(fromTextField: UITextField) {
-        fromTextField.placeholder = "Starting country.."
+        fromTextField.placeholder = "Starting place.."
     }
     
     func addTitleTextField(titleTextField: UITextField) {

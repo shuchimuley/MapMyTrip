@@ -54,7 +54,7 @@ class TripDetailViewController : UIViewController, MKMapViewDelegate {
     }
     
     func addCountryNameTextField(countryTextField: UITextField) {
-        countryTextField.placeholder = "Country name.."
+        countryTextField.placeholder = "Enter place name.."
     }
 
     

@@ -66,7 +66,18 @@ class SignUpViewController : UIViewController, UITextFieldDelegate {
                             let viewController: UIViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("ContainerViewController")
                             self.presentViewController(viewController, animated: true, completion: nil)
                         })
-                    } 
+                    } else {
+                        let errorCode = error!.code
+                        switch errorCode {
+                        case 203:
+                            let errorAlert = UIAlertController(title: "The email address has already been used", message: "Sign in with your username", preferredStyle: UIAlertControllerStyle.Alert)
+                            errorAlert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Cancel, handler: nil))
+                            self.presentViewController(errorAlert, animated: true, completion: nil)
+                            break
+                            
+                        default: break
+                        }
+                    }
                 })
             }
         }

@@ -66,7 +66,7 @@ class MyTripsViewController : UITableViewController {
     }
     
     func addFromTextField(fromTextField: UITextField) {
-        fromTextField.placeholder = "Starting country.."
+        fromTextField.placeholder = "Starting place.."
     }
     
     func addTitleTextField(titleTextField: UITextField) {
