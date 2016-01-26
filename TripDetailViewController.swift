@@ -39,7 +39,7 @@ class TripDetailViewController : UIViewController, MKMapViewDelegate {
     }
     
     @IBAction func addMoreCountries(sender: AnyObject) {
-        let fromAlertView = UIAlertController(title: "Add more destinations?", message: "Enter Country name:", preferredStyle: UIAlertControllerStyle.Alert)
+        let fromAlertView = UIAlertController(title: "Add more destinations?", message: "Enter Place name:", preferredStyle: UIAlertControllerStyle.Alert)
         fromAlertView.addTextFieldWithConfigurationHandler(addCountryNameTextField)
         
         fromAlertView.addAction(UIAlertAction(title: "Add", style: UIAlertActionStyle.Default, handler: {action -> Void in

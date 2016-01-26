@@ -40,6 +40,8 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
     var pointLongitude: CLLocationDegrees = CLLocationDegrees()
     var currentAnnotations: Array<Place> = [Place]()
     
+    @IBOutlet weak var homeNavBar: UINavigationBar!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -62,11 +64,15 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
         let titleTextAttribute:Dictionary = [NSForegroundColorAttributeName: UIColor.whiteColor(), NSFontAttributeName:UIFont(name: "Optima-Bold", size: 23.0)!]
         UINavigationBar.appearance().titleTextAttributes = titleTextAttribute
         
+        
         let lastTripSummaryBarTitleTextAttribute:Dictionary = [NSForegroundColorAttributeName: UIColor.whiteColor(), NSFontAttributeName:UIFont(name: "Optima-Bold", size: 18.0)!]
         lastTripSummaryBar.titleTextAttributes = lastTripSummaryBarTitleTextAttribute
      
         // display last trip
         queryLastTrip()
+        
+        // username
+        homeNavBar.topItem?.title = "Welcome, " + (PFUser.currentUser()?.username)!
         
     }
     

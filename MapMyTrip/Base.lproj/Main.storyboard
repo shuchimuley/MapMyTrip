@@ -76,10 +76,10 @@
                                     <constraint firstAttribute="width" constant="13" id="ZHk-uU-VSO"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Map My Trip" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bem-0v-KHd">
-                                <rect key="frame" x="213" y="178" width="342" height="46"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Map Trip" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bem-0v-KHd">
+                                <rect key="frame" x="213" y="178" width="342" height="48"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="46" id="gtN-Os-4c9"/>
+                                    <constraint firstAttribute="height" constant="48" id="gtN-Os-4c9"/>
                                     <constraint firstAttribute="width" constant="560" id="sTk-rL-mkD"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Optima-Regular" family="Optima" pointSize="40"/>
@@ -555,12 +555,6 @@
                                         <color key="textColor" red="1" green="0.029947819569999999" blue="0.030362285579999999" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="MapMyTrip" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nF3-eB-cHf">
-                                        <rect key="frame" x="114" y="30" width="116" height="21"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <textField opaque="NO" clipsSubviews="YES" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gos-1o-t0D">
                                         <rect key="frame" x="37" y="95" width="270" height="30"/>
                                         <constraints>
@@ -618,6 +612,12 @@
                                             <action selector="cancelAndShowLoginPage:" destination="PWk-dB-ZQb" eventType="touchUpInside" id="mdw-Hh-eFY"/>
                                         </connections>
                                     </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Map Trip" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nF3-eB-cHf">
+                                        <rect key="frame" x="132" y="30" width="80" height="24"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" red="0.17647058823529413" green="0.13333333333333333" blue="0.28627450980392155" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -626,7 +626,7 @@
                                     <constraint firstAttribute="trailing" secondItem="VoV-Yq-dgD" secondAttribute="trailing" constant="37" id="5Ee-ed-yE2"/>
                                     <constraint firstItem="IGY-yT-I3G" firstAttribute="top" secondItem="7QT-gC-jXq" secondAttribute="bottom" constant="15" id="7O3-Ll-36X"/>
                                     <constraint firstItem="ZgK-9k-iQs" firstAttribute="top" secondItem="Kw7-ns-EnK" secondAttribute="bottom" constant="11" id="8L0-sM-3sR"/>
-                                    <constraint firstItem="gos-1o-t0D" firstAttribute="top" secondItem="nF3-eB-cHf" secondAttribute="bottom" constant="44" id="8uR-xX-ZI8"/>
+                                    <constraint firstItem="gos-1o-t0D" firstAttribute="top" secondItem="nF3-eB-cHf" secondAttribute="bottom" constant="41" id="8uR-xX-ZI8"/>
                                     <constraint firstItem="VoV-Yq-dgD" firstAttribute="trailing" secondItem="IHt-p3-oSI" secondAttribute="trailing" id="AUu-xo-mlK"/>
                                     <constraint firstItem="Kw7-ns-EnK" firstAttribute="centerX" secondItem="IGY-yT-I3G" secondAttribute="centerX" id="CgN-Te-8gb"/>
                                     <constraint firstItem="ZgK-9k-iQs" firstAttribute="top" secondItem="IGY-yT-I3G" secondAttribute="bottom" constant="36" id="Eck-IO-VaS"/>
@@ -724,7 +724,7 @@
                                     <color key="textColor" red="0.95686274510000002" green="0.96470588239999999" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
                                 </textAttributes>
                                 <items>
-                                    <navigationItem title="Map My Trip" id="9Pf-jd-gDe"/>
+                                    <navigationItem title="Map Trip" id="9Pf-jd-gDe"/>
                                 </items>
                             </navigationBar>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="menu.png" translatesAutoresizingMaskIntoConstraints="NO" id="Iko-x8-ukE">
@@ -846,6 +846,7 @@
                     <connections>
                         <outlet property="distanceTravelled" destination="a8J-Tx-VOU" id="7VF-Lw-no2"/>
                         <outlet property="fromCountry" destination="iug-aU-krB" id="5RE-3d-3UR"/>
+                        <outlet property="homeNavBar" destination="h9S-i4-UO9" id="eiQ-jw-Mn7"/>
                         <outlet property="lastTripSummaryBar" destination="Ffk-fo-Akl" id="rMv-af-UnL"/>
                         <outlet property="mmvMapView" destination="q9o-mO-tfN" id="8DD-pA-xw1"/>
                         <outlet property="showSideViewButton" destination="Iko-x8-ukE" id="i69-gX-HAu"/>
