@@ -33,6 +33,10 @@ class MyTripsViewController : UITableViewController {
         queryAllTrips()
     }
     
+    override func viewDidAppear(animated: Bool) {
+        self.tableView.reloadData()
+    }
+    
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return 80
     }
