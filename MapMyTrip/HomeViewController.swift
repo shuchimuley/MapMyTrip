@@ -13,7 +13,7 @@ import Parse
 
 class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
     @IBOutlet weak var showSideViewButton: UIImageView!
-    @IBOutlet weak var mmvMapView: MKMapView!    
+    @IBOutlet weak var mmvMapView: MKMapView!
     
     // array to store coordinates
     var annotations: Array<Place> = [Place]()
@@ -76,13 +76,6 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
         
     }
     
-    override func viewWillDisappear(animated: Bool) {
-//        mmvMapView.showsUserLocation = false
-//        mmvMapView.delegate = nil
-//        mmvMapView.removeFromSuperview()
-        mmvMapView = nil
-    }
-    
     deinit {
         print("Deinit is called")
     }
@@ -134,13 +127,13 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
                     
                     let firstPlace:Place = self.currentAnnotations[0]
                     // put pins on the map
-                    for place in self.currentAnnotations {
-                        self.mmvMapView.addAnnotation(place)
-                    }
-                    
+//                    for place in self.currentAnnotations {
+//                        self.mmvMapView.addAnnotation(place)
+//                    }
+                    self.mmvMapView.showAnnotations(self.currentAnnotations, animated: true)
                     // center map on annotation
                     self.mmvMapView.centerCoordinate = firstPlace.coordinate
-                    self.mmvMapView.showAnnotations(self.currentAnnotations, animated: true)
+                    
                     
                     
                     if self.currentAnnotations.count > 1 {
