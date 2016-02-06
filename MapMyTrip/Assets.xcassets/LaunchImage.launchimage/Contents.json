@@ -1,27 +1,9 @@
 {
   "images" : [
     {
-      "extent" : "full-screen",
-      "idiom" : "iphone",
-      "subtype" : "736h",
-      "filename" : "mapmytrip-landscape-ipad-2x.png",
-      "minimum-system-version" : "8.0",
-      "orientation" : "portrait",
-      "scale" : "3x"
-    },
-    {
-      "extent" : "full-screen",
-      "idiom" : "iphone",
-      "subtype" : "667h",
-      "filename" : "mapmytrip-landscape-ipad-pro-2x-1.png",
-      "minimum-system-version" : "8.0",
-      "orientation" : "portrait",
-      "scale" : "2x"
-    },
-    {
       "orientation" : "portrait",
       "idiom" : "ipad",
-      "filename" : "mapmytrip-landscape-ipad.png",
+      "filename" : "mapmytrip-portrait-ipad@1x.png",
       "extent" : "full-screen",
       "minimum-system-version" : "7.0",
       "scale" : "1x"
@@ -29,7 +11,7 @@
     {
       "orientation" : "portrait",
       "idiom" : "ipad",
-      "filename" : "mapmytrip-landscape-ipad-pro-2x.png",
+      "filename" : "mapmytrip-portrait-ipad@2x.jpg.png",
       "extent" : "full-screen",
       "minimum-system-version" : "7.0",
       "scale" : "2x"

@@ -140,6 +140,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
                     
                     // center map on annotation
                     self.mmvMapView.centerCoordinate = firstPlace.coordinate
+                    self.mmvMapView.showAnnotations(self.currentAnnotations, animated: true)
                     
                     
                     if self.currentAnnotations.count > 1 {

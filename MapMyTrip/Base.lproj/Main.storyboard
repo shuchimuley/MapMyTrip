@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="14F1706" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="14F1706" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -114,13 +114,6 @@
                                     <action selector="loginIntoMapMyTrip:" destination="BYZ-38-t0r" eventType="touchUpInside" id="mJQ-UZ-Vwd"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" alpha="0.59999999999999998" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="footprints1.png" translatesAutoresizingMaskIntoConstraints="NO" id="Xgz-nK-dbH">
-                                <rect key="frame" x="497" y="198" width="52" height="60"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="60" id="Qwh-MH-XMn"/>
-                                    <constraint firstAttribute="width" constant="52" id="bhD-Hh-Jca"/>
-                                </constraints>
-                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ccy-S7-cdn">
                                 <rect key="frame" x="418" y="650" width="73" height="30"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
@@ -142,7 +135,6 @@
                             <constraint firstItem="Ccy-S7-cdn" firstAttribute="leading" secondItem="xTK-2A-dbQ" secondAttribute="trailing" constant="-17" id="7lJ-n2-h70"/>
                             <constraint firstItem="bem-0v-KHd" firstAttribute="leading" secondItem="aY1-bO-cr7" secondAttribute="leadingMargin" constant="193" id="B1h-3r-Jkv"/>
                             <constraint firstItem="rvc-YI-VUc" firstAttribute="top" secondItem="e7T-cw-vYc" secondAttribute="bottom" constant="36" id="Ehb-uz-f9r"/>
-                            <constraint firstItem="Xgz-nK-dbH" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="178" id="FH3-Fe-NGp"/>
                             <constraint firstItem="rvc-YI-VUc" firstAttribute="top" secondItem="aY1-bO-cr7" secondAttribute="top" constant="453" id="HVZ-pD-cG2"/>
                             <constraint firstItem="iLH-ib-dZ1" firstAttribute="leading" secondItem="gNL-Hx-BD8" secondAttribute="trailing" constant="23" id="KN4-9E-AWd"/>
                             <constraint firstItem="6Va-zK-Ze5" firstAttribute="centerX" secondItem="rvc-YI-VUc" secondAttribute="centerX" id="OgO-CK-Lga"/>
@@ -155,7 +147,6 @@
                             <constraint firstItem="bem-0v-KHd" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="158" id="gCn-kN-xrT"/>
                             <constraint firstItem="QVS-uK-WlV" firstAttribute="trailing" secondItem="iLH-ib-dZ1" secondAttribute="trailing" id="jtk-zP-Ma1"/>
                             <constraint firstItem="gNL-Hx-BD8" firstAttribute="leading" secondItem="aY1-bO-cr7" secondAttribute="leading" constant="198" id="kRk-c9-N8z"/>
-                            <constraint firstItem="Xgz-nK-dbH" firstAttribute="leading" secondItem="aY1-bO-cr7" secondAttribute="leadingMargin" constant="477" id="l7h-SE-Lls"/>
                             <constraint firstItem="Ccy-S7-cdn" firstAttribute="top" secondItem="6Va-zK-Ze5" secondAttribute="bottom" constant="10" id="lbc-pk-4UY"/>
                             <constraint firstItem="gNL-Hx-BD8" firstAttribute="leading" secondItem="e7T-cw-vYc" secondAttribute="leading" id="mkE-aq-6RA"/>
                             <constraint firstAttribute="trailingMargin" secondItem="rvc-YI-VUc" secondAttribute="trailing" constant="-20" id="qPA-YJ-7Vp"/>
@@ -876,7 +867,6 @@
     </scenes>
     <resources>
         <image name="background1.jpg" width="1125" height="1500"/>
-        <image name="footprints1.png" width="9412" height="12194"/>
         <image name="line.png" width="15130" height="200"/>
         <image name="lock.png" width="410" height="504"/>
         <image name="menu.png" width="804" height="646"/>

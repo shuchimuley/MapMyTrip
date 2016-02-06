@@ -89,5 +89,7 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
+	<key>UILaunchImageFile~ipad</key>
+	<string>mapmytrip-portrait-ipad@2x.jpg</string>
 </dict>
 </plist>
