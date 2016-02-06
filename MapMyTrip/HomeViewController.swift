@@ -13,7 +13,7 @@ import Parse
 
 class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
     @IBOutlet weak var showSideViewButton: UIImageView!
-    @IBOutlet weak var mmvMapView: MKMapView!
+    @IBOutlet weak var mmvMapView: MKMapView!    
     
     // array to store coordinates
     var annotations: Array<Place> = [Place]()
@@ -74,6 +74,17 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
         // username
         homeNavBar.topItem?.title = "Welcome, " + (PFUser.currentUser()?.username)!
         
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+//        mmvMapView.showsUserLocation = false
+//        mmvMapView.delegate = nil
+//        mmvMapView.removeFromSuperview()
+        mmvMapView = nil
+    }
+    
+    deinit {
+        print("Deinit is called")
     }
     
     func queryLastTrip() {
@@ -155,10 +166,8 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
             let location2 = CLLocation(latitude: self.currentAnnotations[i+1].latitude, longitude: self.currentAnnotations[i+1].longitude)
             
             let distance = location1.distanceFromLocation(location2)/1000.0
-            print("Distance: \(distance)")
             totalDistance += distance
         }
-        print("TotalDistance: \(totalDistance)")
         distanceTravelled.text = String(format: "%.2f km", totalDistance)
     }
     
@@ -230,7 +239,6 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
     
     // Method to put pin on the map
     func addRouteOnMap(notification: NSNotification) {
-        print("Notification: Parent method called")
         var locationNames:Dictionary = (notification.object as? Dictionary<String,String>)!
         let fromValue = locationNames["from"] as String!
         countryName = fromValue
@@ -268,7 +276,6 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
                             self.annotations.append(annotation)
                             self.mmvMapView.addAnnotation(annotation)
                             self.createNewTrip()
-                            print("Longitude and latitude \(self.pointLatitude) : \(self.pointLongitude)")
                         }
                     })
                 }

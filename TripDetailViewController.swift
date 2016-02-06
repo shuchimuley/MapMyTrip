@@ -56,7 +56,6 @@ class TripDetailViewController : UIViewController, MKMapViewDelegate {
     func addCountryNameTextField(countryTextField: UITextField) {
         countryTextField.placeholder = "Enter place name.."
     }
-
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -68,6 +67,17 @@ class TripDetailViewController : UIViewController, MKMapViewDelegate {
         
         // delegate for map
         self.tripDetailMapView.delegate = self
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        tripDetailMapView.showsUserLocation = false
+        tripDetailMapView.delegate = nil
+        tripDetailMapView.removeFromSuperview()
+        tripDetailMapView = nil
+    }
+    
+    deinit {
+        print("Deinit in Trip Detail is called")
     }
     
     func calculateTotalDistance() {
