@@ -127,9 +127,6 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
                     
                     let firstPlace:Place = self.currentAnnotations[0]
                     // put pins on the map
-//                    for place in self.currentAnnotations {
-//                        self.mmvMapView.addAnnotation(place)
-//                    }
                     self.mmvMapView.showAnnotations(self.currentAnnotations, animated: true)
                     // center map on annotation
                     self.mmvMapView.centerCoordinate = firstPlace.coordinate

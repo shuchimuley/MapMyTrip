@@ -135,7 +135,8 @@ class TripDetailViewController : UIViewController, MKMapViewDelegate {
                     
                     // remove all and add all annotations
                     self.tripDetailMapView.removeAnnotations(self.annotations)
-                    self.tripDetailMapView.addAnnotations(self.annotations)
+//                    self.tripDetailMapView.addAnnotations(self.annotations)
+                    self.tripDetailMapView.showAnnotations(self.annotations, animated: true)
                     self.createNewTrip()
                     if self.places.count > 1 {
                         self.joinPoints()
@@ -211,9 +212,8 @@ class TripDetailViewController : UIViewController, MKMapViewDelegate {
                     }
                     
                     // put pins on the map
-                    for place in self.places {
-                        self.tripDetailMapView.addAnnotation(place)
-                    }
+                    self.tripDetailMapView.showAnnotations(self.places, animated: true)
+                    
                 }
                 
                 if self.places.count > 1 {
