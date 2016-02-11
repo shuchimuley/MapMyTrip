@@ -19,6 +19,8 @@ class MyTripsViewController : UITableViewController {
     var rControl:UIRefreshControl!
     var listOfTrips:[String:[Place]] = [:]
     let tripCellIdentifier = "TripCell"
+    var deleteIndexPath:NSIndexPath? = nil
+    var tripToDelete:String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,7 +36,7 @@ class MyTripsViewController : UITableViewController {
     }
     
     override func viewDidAppear(animated: Bool) {
-        self.tableView.reloadData()
+        //self.tableView.reloadData()
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
@@ -42,6 +44,10 @@ class MyTripsViewController : UITableViewController {
     }
     
     func refresh(sender:AnyObject) {
+        self.listOfTrips.removeAll()
+        self.setOfTrips.removeAll()
+        self.arrayOfTrips.removeAll()
+        
         queryAllTrips()
         self.tableView.reloadData()
         self.rControl?.endRefreshing()
@@ -144,6 +150,78 @@ class MyTripsViewController : UITableViewController {
         return cell
     }
     
+    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if editingStyle == .Delete {
+            // delete row
+            deleteIndexPath = indexPath
+            tripToDelete = self.arrayOfTrips[(deleteIndexPath?.row)!]
+            confirmDelete(tripToDelete)
+            
+//            // delete every row in Parse where title is tripTitle for this user
+//            let lastElementQuery = PFQuery(className: "Trip")
+//            let currentUser = PFUser.currentUser()?.objectId
+//            lastElementQuery.whereKey("title", equalTo: tripTitle)
+//            lastElementQuery.whereKey("userId", equalTo: currentUser!)
+//            lastElementQuery.findObjectsInBackgroundWithBlock { (objects:[PFObject]?, error:NSError?) -> Void in
+//                if error == nil {
+//                    if let tripObjs:[PFObject] = objects!{
+//                        PFObject.deleteAllInBackground(tripObjs)
+//                        tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
+//                        self.setOfTrips.remove(tripTitle)
+//                    }
+//                }
+//            }
+        }
+    }
+    
+    func confirmDelete(tripTitle:String) {
+       let alert = UIAlertController(title: "Delete Trip", message: "Are you sure you want to delete \(tripTitle)", preferredStyle: UIAlertControllerStyle.Alert)
+        let deleteAction = UIAlertAction(title: "Delete", style: UIAlertActionStyle.Destructive, handler: handleDeleteTrip)
+        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Destructive, handler: cancelDeleteTrip)
+        
+        alert.addAction(deleteAction)
+        alert.addAction(cancelAction)
+        
+        alert.popoverPresentationController?.sourceView = self.view
+        alert.popoverPresentationController?.sourceRect = CGRectMake(1.0, 1.0, self.view.bounds.size.width/2, self.view.bounds.size.height/2)
+        
+        self.presentViewController(alert, animated: true, completion: nil)
+    }
+    
+    func handleDeleteTrip(alertAction:UIAlertAction!) -> Void {
+        // delete every row in Parse where title is tripTitle for this user
+        var isTripDeleted:Bool = false
+        let lastElementQuery = PFQuery(className: "Trip")
+        let currentUser = PFUser.currentUser()?.objectId
+        lastElementQuery.whereKey("title", equalTo: tripToDelete)
+        lastElementQuery.whereKey("userId", equalTo: currentUser!)
+        lastElementQuery.findObjectsInBackgroundWithBlock { (objects:[PFObject]?, error:NSError?) -> Void in
+            
+            if error == nil {
+                if let tripObjs:[PFObject] = objects{
+                    PFObject.deleteAllInBackground(tripObjs)
+                    isTripDeleted = true
+                    if isTripDeleted {
+                        self.tableView.beginUpdates()
+                        self.tableView.deleteRowsAtIndexPaths([self.deleteIndexPath!], withRowAnimation: UITableViewRowAnimation.Fade)
+                        self.setOfTrips.remove(self.tripToDelete)
+                        self.listOfTrips.removeValueForKey(self.tripToDelete)
+                        self.arrayOfTrips.removeAtIndex(self.deleteIndexPath!.row)
+                        self.deleteIndexPath = nil
+                        self.tableView.endUpdates()
+                    }
+
+                }
+            }
+        }
+        
+    }
+    
+    func cancelDeleteTrip(alertAction:UIAlertAction!) -> Void {
+        deleteIndexPath = nil
+    }
+    
+    
     func setTripTitle(cell:TripCell, indexPath:NSIndexPath) {
         if self.arrayOfTrips.count != 0 {
             let item = self.arrayOfTrips[indexPath.row]
@@ -152,7 +230,7 @@ class MyTripsViewController : UITableViewController {
     }
     
     func setTripStart(cell:TripCell, indexPath:NSIndexPath) {
-        if self.arrayOfTrips.count != 0 {
+        if self.arrayOfTrips.count != 0 && self.listOfTrips.count != 0 {
             let item:String = self.arrayOfTrips[indexPath.row]
             let listOfCountries:[Place] = self.listOfTrips[item]!
             for place in listOfCountries {
@@ -165,11 +243,13 @@ class MyTripsViewController : UITableViewController {
     }
     
     func setTripEnd(cell:TripCell, indexPath:NSIndexPath) {
-        let item:String = self.arrayOfTrips[indexPath.row]
-        let listOfCountries:[Place] = self.listOfTrips[item]!
-        for place in listOfCountries {
-            if place.sequenceOfVisit == listOfCountries.count {
-                cell.tripEnd.text = place.countryName
+        if self.arrayOfTrips.count != 0 && self.listOfTrips.count != 0 {
+            let item:String = self.arrayOfTrips[indexPath.row]
+            let listOfCountries:[Place] = self.listOfTrips[item]!
+            for place in listOfCountries {
+                if place.sequenceOfVisit == listOfCountries.count {
+                    cell.tripEnd.text = place.countryName
+                }
             }
         }
     }
